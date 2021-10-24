@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Post } from '../models/models';
+import { BehaviorSubject, merge, Observable } from 'rxjs';
+import { tap, mergeMap, concatMap, mergeAll, switchMap, map } from 'rxjs/operators';
+import { Post, ServerPost, ServerUser } from '../models/models';
 import { PostsService } from './posts.service';
 
 @Injectable({
@@ -25,23 +25,34 @@ export class PostsStoreService {
 
 
   loadPosts() {
-    const posts$ = this.postsService.loadPosts().pipe(
-      tap(posts => this._posts.next(posts.map(x => {
-        return <Post>{
-          postId: x.id,
-          userId: x.userId,
-          title: x.title,
-          body: x.body,
-          isRead: (Math.random() < 0.5),
-          commentsCount: 3, // todo: get count
-          user: {
-            name: 'Ion',
-            username: 'Ion',
-            website: 'Ion.com'
-          }
-        }
-      })))
-    ).subscribe();
+    const posts$ = this.postsService.loadPosts();
+    const users$ = this.postsService.loadUsers();
+
+    // Add User Info to Posts;
+    const combined$ = users$.pipe(
+      switchMap((users: ServerUser[]) => {
+        return posts$.pipe(
+          map((serverPosts: ServerPost[]) => {
+            return serverPosts.map(serverPost => {
+              const user = users.find(x => x.id === serverPost.userId);
+              return <Post>{
+                postId: serverPost.id,
+                userId: serverPost.userId,
+                title: serverPost.title,
+                body: serverPost.body,
+                isRead: (Math.random() < 0.5),
+                commentsCount: 3, // todo: get count
+                user: {
+                  name: user.name,
+                  username: user.username,
+                  website: user.website
+                }
+              }
+            })
+          })
+        )
+      }) // todo: save to localhost
+    ).subscribe(x => this._posts.next(x));
   }
 
 

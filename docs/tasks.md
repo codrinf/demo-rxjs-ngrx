@@ -1,6 +1,7 @@
 
 
 [OPEN] Store Service
+
 [OPEN] Multiple Subjects calls
 [OPEN] Delete Post 
 [OPEN] RxJS Operators: 
@@ -17,6 +18,9 @@
   [OPEN] combineLatest
   [OPEN] zip
 
+[OPEN] Edit Post 
+[OPEN] Show User Info in 
+[OPEN] New Route: /post/postId
 [OPEN] Observable from dom events
 [OPEN] Errors/Confirm Service
 
