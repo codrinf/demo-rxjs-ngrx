@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Post } from 'src/app/models/models';
+import { Post, User } from 'src/app/models/models';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class EditPostComponent implements OnInit {
 
   editForm: FormGroup;
   post: Post;
+  users: User[] = [];
 
   constructor(
     fb: FormBuilder,
@@ -26,14 +27,26 @@ export class EditPostComponent implements OnInit {
       title: [post.title, Validators.required],
       body: [post.body, Validators.required],
       isRead: [post.isRead, Validators.required],
+      userId: [post.user.userId, Validators.required],
     });
   }
 
   ngOnInit(): void {
+    this.storeService.users$.subscribe(x => {
+      this.users = x;
+    })
   }
 
-  onSave() {
+  onSave() { 
     const changes = this.editForm.value;
+    const user = this.users.find(x => x.userId === changes.userId);
+    delete changes.userId;
+    changes.user = {
+      userId: user.userId,
+      name: user.name,
+      username: user.username,
+      website: user.website
+    }
     this.storeService.editPost(this.post.postId, changes).subscribe((val) => this.dialogRef.close(val));
   }
 

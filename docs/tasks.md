@@ -4,13 +4,15 @@
 [DONE] Multiple Subjects calls
 [DONE] Delete Post 
 [DONE] Show User Info in 
+[DONE] Edit Post
+
+
 
  
 [OPEN] New Route: /post/postId
 [OPEN] Observable from dom events
 [OPEN] Errors/Confirm Service
 
-[OPEN] Edit Post
 
 [OPEN] RxJS Operators: 
   [DONE] map, 

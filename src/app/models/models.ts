@@ -5,6 +5,7 @@ export interface Post {
   body: string;
   isRead: boolean;
   user: {
+    userId: number,
     name: string,
     username: string,
     website: string
@@ -27,11 +28,6 @@ export interface User {
   }
   phone: string,
   website: string,
-  company: {
-    name: string,
-    catchPhrase: string,
-    bs: string
-  }
 }
 
 export interface Comment {
@@ -41,10 +37,6 @@ export interface Comment {
   body: string;
   email: string;
 }
-
-
-
-
 
 
 export interface ServerPost {

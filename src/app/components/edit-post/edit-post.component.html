@@ -7,6 +7,14 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-select placeholder="Author" formControlName="userId">
+      <mat-option *ngFor="let user of users" [value]="user.userId">
+        {{user.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-select placeholder="Read?" formControlName="isRead">
       <mat-option [value]="true">
         Yes
