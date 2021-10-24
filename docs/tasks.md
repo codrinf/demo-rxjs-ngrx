@@ -5,26 +5,20 @@
 [DONE] Delete Post 
 [DONE] Show User Info in 
 [DONE] Edit Post
+[DONE] New Route: /post/postId
+[DONE] New Route + Get Comments
+[DONE] Observable from dom events
 
- 
-[OPEN] New Route: /post/postId
-[OPEN] New Route + Get Comments
-
-
-[OPEN] Observable from dom events
 [OPEN] Errors/Confirm Service
 
+[OPEN] RxJS Operators / Functions: 
 
-[OPEN] RxJS Operators: 
   [DONE] map, 
-  [DONE] shareReplay, 
+  [DONE] shareReplay,
   [DONE] tap
-  [OPEN] catchError, 
-  [OPEN] of
-  [OPEN] from
-  [OPEN] switchMap
-  [OPEN] mergeMap
-  [OPEN] take
-  [OPEN] pluck
-  [OPEN] combineLatest
-  [OPEN] zip
+  [DONE] catchError, 
+  [DONE] fromEvent
+  [DONE] switchMap
+  [DONE] filter
+  [DONE] combineLatest
+  [DONE] merge

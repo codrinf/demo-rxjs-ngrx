@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { tap, mergeMap, concatMap, mergeAll, switchMap, map } from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, throwError } from 'rxjs';
+import { tap, mergeMap, concatMap, mergeAll, switchMap, map, catchError } from 'rxjs/operators';
 import { Post, ServerComment, ServerPost, ServerUser, User, Comment } from '../models/models';
 import { ServerService } from './server.service';
 
@@ -30,7 +30,7 @@ export class StoreService {
           postId: x.postId,
           commentId: x.id,
           name: x.name,
-          body: x.body,
+          body: x.body.split('\n').join(''),
           email: x.email
         }
       }))
@@ -40,6 +40,12 @@ export class StoreService {
   public editPost(postId: number, changes: Partial<Post>) {
     return this.serverService.editPost(postId, changes)
       .pipe(
+        catchError(err => {
+          const message = "Could not edit post";
+          console.error(message, err);
+          // todo: show Error
+          return throwError(err);
+        }),
         tap((x: ServerPost) => {
           const posts = [...this._posts.value];
           const index = posts.findIndex(y => y.postId === x.id)

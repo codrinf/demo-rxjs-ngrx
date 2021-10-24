@@ -1,38 +1,29 @@
-<div *ngIf="all$ | async">
-
-
-
-
-</div>
-
-
-
-<mat-card *ngIf="all$ | async">
+<mat-card *ngIf="post">
   <mat-card-header>
     <mat-card-title>
-      {{ (all$ | async )[0].title}}
+      {{ post.title}}
     </mat-card-title>
   </mat-card-header>
 
 
   <mat-card-content>
     <h5>
-      by {{ (all$ | async )[0].user.name}}
+      by {{ post.user.name}}
     </h5>
-    <p>{{ (all$ | async )[0].body}}</p>
+    <p>{{ post.body}}</p>
     <ul>
-      <li *ngFor="let comment of (all$ | async )[1]">
-        <h5>
+      <li *ngFor="let comment of comments">
+        <h3 >
           by {{comment.email}}
-        </h5>
-        <h6>
+        </h3>
+        <h4>
           <strong>
             {{comment.name}}
           </strong>
-        </h6>
-        <h6>
+        </h4>
+        <h4 #comment>
           {{comment.body}}
-        </h6>
+        </h4>
       </li>
     </ul>
   </mat-card-content>
