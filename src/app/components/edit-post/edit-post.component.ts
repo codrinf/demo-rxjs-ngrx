@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/models';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class EditPostComponent implements OnInit {
 
   onSave() {
     const changes = this.editForm.value;
-    this.postsService.saveCourse(this.post.id, changes).subscribe((val) => this.dialogRef.close(val));
+    this.postsService.saveCourse(this.post.postId, changes).subscribe((val) => this.dialogRef.close(val));
   }
 
   onCancel() {

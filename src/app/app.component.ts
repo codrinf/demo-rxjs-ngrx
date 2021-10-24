@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Post } from './models/post.model';
+import { Post } from './models/models';
 import { PostsService } from './services/posts.service';
 
 @Component({
@@ -26,12 +26,12 @@ export class AppComponent implements OnInit {
   }
 
   updatePosts(){
-    const allPosts$ = this.postsService.getPosts();
-    this.readPosts$ = allPosts$.pipe(
-      map(posts => posts.filter(x => x.isRead))
-    );
-    this.notReadPosts$ = allPosts$.pipe(
-      map(posts => posts.filter(x => !x.isRead))
-    );
+    // const allPosts$ = this.postsService.getPosts();
+    // this.readPosts$ = allPosts$.pipe(
+    //   map(posts => posts.filter(x => x.isRead))
+    // );
+    // this.notReadPosts$ = allPosts$.pipe(
+    //   map(posts => posts.filter(x => !x.isRead))
+    // );
   }
 }
