@@ -1,8 +1,4 @@
 <h2 mat-dialog-title>{{post.title}}</h2>
-<!-- 
-<loading></loading>
-
-<messages></messages> -->
 
 <mat-dialog-content [formGroup]="editForm">
 
@@ -12,7 +8,6 @@
 
   <mat-form-field>
     <mat-select placeholder="Read?" formControlName="isRead">
-
       <mat-option [value]="true">
         Yes
       </mat-option>
@@ -31,13 +26,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-
   <button class="mat-raised-button" (click)="onCancel()">
     Cancel
   </button>
-
   <button class="mat-raised-button mat-primary" #saveButton (click)="onSave()">
     Save
   </button>
-
 </mat-dialog-actions>

@@ -4,7 +4,6 @@ export interface Post {
   title: string;
   body: string;
   isRead: boolean;
-  commentsCount: number;
   user: {
     name: string,
     username: string,

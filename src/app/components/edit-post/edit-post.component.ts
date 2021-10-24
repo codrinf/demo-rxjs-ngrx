@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Post } from 'src/app/models/models';
-import { PostsService } from 'src/app/services/posts.service';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -18,7 +18,7 @@ export class EditPostComponent implements OnInit {
     fb: FormBuilder,
     private dialogRef: MatDialogRef<EditPostComponent>,
     @Inject(MAT_DIALOG_DATA) post: Post,
-    private postsService: PostsService
+    private storeService: StoreService
   ) {
     this.post = post;
 
@@ -34,7 +34,7 @@ export class EditPostComponent implements OnInit {
 
   onSave() {
     const changes = this.editForm.value;
-    this.postsService.saveCourse(this.post.postId, changes).subscribe((val) => this.dialogRef.close(val));
+    this.storeService.editPost(this.post.postId, changes).subscribe((val) => this.dialogRef.close(val));
   }
 
   onCancel() {

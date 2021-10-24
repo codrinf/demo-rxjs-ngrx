@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs/operators';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/models';
+import { StoreService } from 'src/app/services/store.service';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 
 @Component({
@@ -15,7 +16,10 @@ export class PostsListComponent implements OnInit {
 
   @Output() postsChanged: EventEmitter<Post> = new EventEmitter();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private storeService: StoreService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -33,10 +37,14 @@ export class PostsListComponent implements OnInit {
 
     dialogRef.afterClosed()
       .pipe(
-        filter(val => !!val),
+        filter(val => !!val), // do nothing if only close (as it sends null value)
         tap((val) => this.postsChanged.emit(val))
       )
       .subscribe();
+  }
+
+  onDeletePost(postId: number) {
+    this.storeService.deletePost(postId)
   }
 
 }

@@ -8,7 +8,7 @@ import { Post, ServerComment, ServerPost, ServerUser } from '../models/models';
 @Injectable({
   providedIn: 'root'
 })
-export class PostsService {
+export class ServerService {
 
   constructor(
     private httpClient: HttpClient
@@ -35,8 +35,9 @@ export class PostsService {
       );
   }
 
-  saveCourse(postId: number, changes: Partial<Post>) {
-    return this.httpClient.put<Post>(`https://jsonplaceholder.typicode.com/posts/${postId}`, changes)
+  // todo: catchError
+  editPost(postId: number, changes: Partial<Post>) {
+    return this.httpClient.put<ServerPost>(`https://jsonplaceholder.typicode.com/posts/${postId}`, changes)
       .pipe(
         shareReplay()
       );

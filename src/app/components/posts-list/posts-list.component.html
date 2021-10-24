@@ -1,10 +1,15 @@
 <mat-card *ngFor="let post of posts" class="post-card mat-elevation-z10">
   <mat-card-header>
-    <mat-card-title>{{post.id}}, {{post.title}}</mat-card-title>
+    <mat-card-title>{{post.postId}}, {{post.title}}</mat-card-title>
   </mat-card-header>
 
 
   <mat-card-content>
+    <h5>
+      by {{post.user.name}}
+    </h5>
+
+
     <p>{{post.body}}</p>
   </mat-card-content>
 
@@ -16,6 +21,10 @@
 
     <button mat-button class="mat-raised-button mat-accent" (click)="onEditPost(post)">
       Edit Post
+    </button>
+
+    <button mat-button class="mat-raised-button mat-warn" (click)="onDeletePost(post.postId)">
+      Delete Post
     </button>
 
   </mat-card-actions>
