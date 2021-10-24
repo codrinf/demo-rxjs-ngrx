@@ -1,6 +1,6 @@
 <mat-card *ngFor="let post of posts" class="post-card mat-elevation-z10">
   <mat-card-header>
-    <mat-card-title>{{post.title}}</mat-card-title>
+    <mat-card-title>{{post.id}}, {{post.title}}</mat-card-title>
   </mat-card-header>
 
 
@@ -14,7 +14,7 @@
       View Post
     </button>
 
-    <button mat-button class="mat-raised-button mat-accent" (click)="editPost(post)">
+    <button mat-button class="mat-raised-button mat-accent" (click)="onEditPost(post)">
       Edit Post
     </button>
 

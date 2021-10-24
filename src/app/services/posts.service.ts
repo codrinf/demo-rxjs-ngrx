@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post.model';
-import {map, shareReplay} from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,11 +14,18 @@ export class PostsService {
     private httpClient: HttpClient
   ) { }
 
-  getPosts(): Observable<Post[]>{
+  getPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>('https://jsonplaceholder.typicode.com/posts')
+      .pipe(
+        map(x => x.map(y => Object.assign(y, { isRead: (Math.random() < 0.5) }))),
+        shareReplay()
+      );
+  }
+
+  saveCourse(postId: string, changes: Partial<Post>) {
+    return this.httpClient.put<Post>(`https://jsonplaceholder.typicode.com/posts/${postId}`, changes)
     .pipe(
-      map(x => x.map(y => Object.assign(y, {isRead: (Math.random() < 0.5)}))),
       shareReplay()
-    )
+    );
   }
 }

@@ -7,14 +7,14 @@
 
       <mat-tab label="Read">
 
-          <app-posts-list [posts]="readPosts$ | async">
+          <app-posts-list [posts]="readPosts$ | async" (postsChanged)="onPostsChanged($event)">
 
           </app-posts-list>
 
       </mat-tab>
 
   <mat-tab label="Not Read">
-      <app-posts-list [posts]="notReadPosts$ | async">
+      <app-posts-list [posts]="notReadPosts$ | async" (postsChanged)="onPostsChanged($event)">
       </app-posts-list>
   </mat-tab>
 

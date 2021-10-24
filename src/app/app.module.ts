@@ -25,6 +25,7 @@ import { AppComponent } from './app.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 /**
  * RxJs & NgRx Demo
@@ -34,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    PostsListComponent
+    PostsListComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,

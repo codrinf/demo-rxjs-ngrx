@@ -17,14 +17,21 @@ export class AppComponent implements OnInit {
   constructor(private postsService: PostsService) { }
 
   ngOnInit() {
-    const allPosts$ = this.postsService.getPosts();
+    this.updatePosts();
+  }
 
+  onPostsChanged(post: Post) {
+    console.log('Posts changed! ', post);
+    this.updatePosts();
+  }
+
+  updatePosts(){
+    const allPosts$ = this.postsService.getPosts();
     this.readPosts$ = allPosts$.pipe(
       map(posts => posts.filter(x => x.isRead))
     );
     this.notReadPosts$ = allPosts$.pipe(
       map(posts => posts.filter(x => !x.isRead))
     );
-
   }
 }
