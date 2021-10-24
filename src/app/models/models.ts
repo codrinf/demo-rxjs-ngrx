@@ -71,7 +71,7 @@ export interface ServerUser {
 
 export interface ServerComment {
   id: number;
-  commentId: number;
+  postId: number;
   name: string;
   body: string;
   email: string;

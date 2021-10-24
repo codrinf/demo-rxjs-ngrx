@@ -26,6 +26,8 @@ import { PostsListComponent } from './components/posts-list/posts-list.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { PostDetailsComponent } from './pages/post-details/post-details.component';
+import { HomeComponent } from './pages/home/home.component';
 
 /**
  * RxJs & NgRx Demo
@@ -36,7 +38,9 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
   declarations: [
     AppComponent,
     PostsListComponent,
-    EditPostComponent
+    EditPostComponent,
+    PostDetailsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

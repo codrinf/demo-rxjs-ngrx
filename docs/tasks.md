@@ -6,10 +6,11 @@
 [DONE] Show User Info in 
 [DONE] Edit Post
 
-
-
  
 [OPEN] New Route: /post/postId
+[OPEN] New Route + Get Comments
+
+
 [OPEN] Observable from dom events
 [OPEN] Errors/Confirm Service
 

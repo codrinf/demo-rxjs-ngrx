@@ -1,0 +1,39 @@
+<div *ngIf="all$ | async">
+
+
+
+
+</div>
+
+
+
+<mat-card *ngIf="all$ | async">
+  <mat-card-header>
+    <mat-card-title>
+      {{ (all$ | async )[0].title}}
+    </mat-card-title>
+  </mat-card-header>
+
+
+  <mat-card-content>
+    <h5>
+      by {{ (all$ | async )[0].user.name}}
+    </h5>
+    <p>{{ (all$ | async )[0].body}}</p>
+    <ul>
+      <li *ngFor="let comment of (all$ | async )[1]">
+        <h5>
+          by {{comment.email}}
+        </h5>
+        <h6>
+          <strong>
+            {{comment.name}}
+          </strong>
+        </h6>
+        <h6>
+          {{comment.body}}
+        </h6>
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>

@@ -9,19 +9,8 @@ import { StoreService } from './services/store.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent  {
 
-  readPosts$: Observable<Post[]> = this.storeService.posts$.pipe(
-    map(posts => posts.filter(x => x.isRead))
-  );
-  notReadPosts$: Observable<Post[]> = this.storeService.posts$.pipe(
-    map(posts => posts.filter(x => !x.isRead))
-  );
-
-  constructor(private storeService: StoreService) { }
-
-  ngOnInit() {
-    // this.updatePosts();
-  }
+ 
 
 }

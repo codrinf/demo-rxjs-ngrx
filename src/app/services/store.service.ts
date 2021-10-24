@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { tap, mergeMap, concatMap, mergeAll, switchMap, map } from 'rxjs/operators';
-import { Post, ServerPost, ServerUser, User } from '../models/models';
+import { Post, ServerComment, ServerPost, ServerUser, User, Comment } from '../models/models';
 import { ServerService } from './server.service';
 
 @Injectable({
@@ -22,8 +22,45 @@ export class StoreService {
     this.loadPosts();
   }
 
+  public loadCommentsForPost(postId: number): Observable<Comment[]> {
+    return this.serverService.loadComments().pipe(
+      map((comments: ServerComment[]) => comments.filter(x => x.postId === postId)),
+      map((comments: ServerComment[]) => comments.map(x => {
+        return {
+          postId: x.postId,
+          commentId: x.id,
+          name: x.name,
+          body: x.body,
+          email: x.email
+        }
+      }))
+    )
+  }
 
-  loadPosts() {
+  public editPost(postId: number, changes: Partial<Post>) {
+    return this.serverService.editPost(postId, changes)
+      .pipe(
+        tap((x: ServerPost) => {
+          const posts = [...this._posts.value];
+          const index = posts.findIndex(y => y.postId === x.id)
+          posts[index].body = x.body;
+          posts[index].title = x.title;
+          posts[index].isRead = changes.isRead;
+          posts[index].user = changes.user;
+
+          this._posts.next(posts);
+        })
+      );
+  }
+
+  public deletePost(postId: number) {
+    const posts = this._posts.value;
+    const newPosts = posts.filter(x => x.postId !== postId)
+    this._posts.next(newPosts);
+  }
+
+
+  protected loadPosts() {
     const posts$ = this.serverService.loadPosts();
     const users$ = this.serverService.loadUsers();
 
@@ -65,27 +102,5 @@ export class StoreService {
         )
       }) // todo: save to localhost
     ).subscribe(x => this._posts.next(x));
-  }
-
-  public editPost(postId: number, changes: Partial<Post>) {
-    return this.serverService.editPost(postId, changes)
-      .pipe(
-        tap((x: ServerPost) => {
-          const posts = [...this._posts.value];
-          const index = posts.findIndex(y => y.postId === x.id)
-          posts[index].body = x.body;
-          posts[index].title = x.title;
-          posts[index].isRead = changes.isRead;
-          posts[index].user = changes.user;
-
-          this._posts.next(posts);
-        })
-      );
-  }
-
-  public deletePost(postId: number) {
-    const posts = this._posts.value;
-    const newPosts = posts.filter(x => x.postId !== postId)
-    this._posts.next(newPosts);
   }
 }
