@@ -16,7 +16,7 @@
   [OPEN] pluck
   [OPEN] combineLatest
   [OPEN] zip
-  
 
+[OPEN] Observable from dom events
 [OPEN] Errors/Confirm Service
 

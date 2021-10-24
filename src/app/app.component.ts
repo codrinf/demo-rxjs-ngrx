@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from './models/models';
+import { PostsStoreService } from './services/posts-store.service';
 import { PostsService } from './services/posts.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   readPosts$: Observable<Post[]>;
   notReadPosts$: Observable<Post[]>;
 
-  constructor(private postsService: PostsService) { }
+  constructor(private storeService: PostsStoreService) { }
 
   ngOnInit() {
     this.updatePosts();
@@ -25,13 +26,13 @@ export class AppComponent implements OnInit {
     this.updatePosts();
   }
 
-  updatePosts(){
-    // const allPosts$ = this.postsService.getPosts();
-    // this.readPosts$ = allPosts$.pipe(
-    //   map(posts => posts.filter(x => x.isRead))
-    // );
-    // this.notReadPosts$ = allPosts$.pipe(
-    //   map(posts => posts.filter(x => !x.isRead))
-    // );
+  updatePosts() {
+    const allPosts$ = this.storeService.posts$;
+    this.readPosts$ = allPosts$.pipe(
+      map(posts => posts.filter(x => x.isRead))
+    );
+    this.notReadPosts$ = allPosts$.pipe(
+      map(posts => posts.filter(x => !x.isRead))
+    );
   }
 }

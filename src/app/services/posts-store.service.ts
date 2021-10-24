@@ -20,18 +20,28 @@ export class PostsStoreService {
   constructor(
     protected postsService: PostsService
   ) {
-
+    this.loadPosts();
   }
 
 
   loadPosts() {
-
-
-
-
     const posts$ = this.postsService.loadPosts().pipe(
-      tap(posts => this._posts.next(posts))
-    );
+      tap(posts => this._posts.next(posts.map(x => {
+        return <Post>{
+          postId: x.id,
+          userId: x.userId,
+          title: x.title,
+          body: x.body,
+          isRead: (Math.random() < 0.5),
+          commentsCount: 3, // todo: get count
+          user: {
+            name: 'Ion',
+            username: 'Ion',
+            website: 'Ion.com'
+          }
+        }
+      })))
+    ).subscribe();
   }
 
 
